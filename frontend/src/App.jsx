@@ -51,16 +51,15 @@ const styles = {
   heroChip: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: '.4rem',
-    padding: '.3rem .9rem',
-    borderRadius: 100,
-    background: 'rgba(0,212,255,.08)',
-    border: '1px solid rgba(0,212,255,.2)',
-    fontSize: '.78rem',
-    color: 'var(--accent-cyan)',
-    fontWeight: 600,
-    marginBottom: '1.25rem',
-    letterSpacing: '.04em',
+    gap: '6px',
+    padding: '4px 12px',
+    background: 'var(--bg-800)',
+    border: '1px solid var(--border)',
+    borderRadius: '100px',
+    fontSize: '12px',
+    color: 'var(--text-200)',
+    fontWeight: 500,
+    marginBottom: '16px',
   },
   grid: {
     display: 'grid',
@@ -78,12 +77,12 @@ const styles = {
 
 /* ── Componente de tech-stack ─────────────────── */
 const STACK = [
-  { label: 'React + Vite',  color: 'var(--accent-cyan)'   },
-  { label: 'Solidity',      color: 'var(--accent-purple)'  },
-  { label: 'Hardhat',       color: 'var(--accent-amber)'   },
-  { label: 'OpenAI',        color: 'var(--accent-green)'   },
-  { label: 'ethers.js',     color: '#9ca3af'               },
-  { label: 'Sepolia',       color: '#f87171'               },
+  { label: 'React + Vite' },
+  { label: 'Solidity' },
+  { label: 'Hardhat' },
+  { label: 'OpenAI' },
+  { label: 'ethers.js' },
+  { label: 'Sepolia' },
 ];
 
 /* ═══════════════════════════════════════════════ */
@@ -127,14 +126,14 @@ export default function App() {
           </button>
           <a style={styles.logo} href="/" aria-label="AI Web3 Dashboard">
             <div style={{
-              width: 34, height: 34, borderRadius: 10,
-              background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-purple))',
+              width: 32, height: 32, borderRadius: 16,
+              background: 'var(--bg-700)', border: '1px solid var(--border)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-            <Brain size={18} color="#fff" />
+            <Brain size={16} color="var(--text-100)" />
           </div>
-          <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-100)' }}>
-            AI Web3 <span style={{ color: 'var(--accent-cyan)' }}>Dashboard</span>
+          <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-100)' }}>
+            AI Web3 Dashboard
           </span>
           </a>
         </div>
@@ -165,9 +164,8 @@ export default function App() {
             <Zap size={11} />
             Web3 + Smart Contracts + IA
           </div>
-          <h1>
-            <span className="gradient-text">AI-Powered</span>{' '}
-            Web3 Dashboard
+          <h1 style={{ fontWeight: 600, fontSize: '32px' }}>
+            AI-Powered Web3 Dashboard
           </h1>
           <p style={{ maxWidth: 520, margin: '.75rem auto 1.5rem', fontSize: '1rem' }}>
             Conecta tu wallet, interactúa con un smart contract en Sepolia
@@ -175,11 +173,11 @@ export default function App() {
           </p>
           {/* Stack chips */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.5rem', justifyContent: 'center' }}>
-            {STACK.map(({ label, color }) => (
+            {STACK.map(({ label }) => (
               <span key={label} style={{
-                padding: '.25rem .7rem', borderRadius: 100,
-                background: 'rgba(10,15,30,.8)', border: `1px solid ${color}33`,
-                fontSize: '.75rem', color, fontWeight: 500,
+                padding: '4px 10px', borderRadius: 100,
+                background: 'transparent', border: `1px solid var(--border)`,
+                fontSize: '12px', color: 'var(--text-200)', fontWeight: 500,
               }}>
                 {label}
               </span>
