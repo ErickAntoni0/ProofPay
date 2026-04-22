@@ -1,0 +1,19 @@
+# Dependencias
+node_modules/
+frontend/node_modules/
+
+# Build
+frontend/dist/
+frontend/.vite/
+
+# Variables de entorno — NUNCA subir a git
+.env
+frontend/.env
+
+# Hardhat / Solidity
+cache/
+artifacts/
+
+# Misc
+.DS_Store
+*.log

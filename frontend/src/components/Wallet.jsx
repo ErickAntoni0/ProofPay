@@ -1,0 +1,186 @@
+/**
+ * Wallet.jsx — Componente de conexión de wallet
+ */
+import { useState } from 'react';
+import { Wallet as WalletIcon, LogOut, ExternalLink, Copy, CheckCheck, RefreshCw } from 'lucide-react';
+import { connectWallet, getBalance } from '../services/web3';
+
+export default function Wallet({ walletData, onConnect, onDisconnect }) {
+  const [loading,  setLoading]  = useState(false);
+  const [error,    setError]    = useState(null);
+  const [copied,   setCopied]   = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const { address, balance, provider } = walletData || {};
+  const connected = !!address;
+
+  // ── Conectar ───────────────────────────────────
+  async function handleConnect() {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await connectWallet();
+      const bal  = await getBalance(data.provider, data.address);
+      onConnect({ ...data, balance: bal });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // ── Refrescar balance ──────────────────────────
+  async function handleRefreshBalance() {
+    if (!provider || !address) return;
+    setRefreshing(true);
+    try {
+      const bal = await getBalance(provider, address);
+      onConnect({ ...walletData, balance: bal });
+    } finally {
+      setRefreshing(false);
+    }
+  }
+
+  // ── Copiar dirección ───────────────────────────
+  async function handleCopy() {
+    await navigator.clipboard.writeText(address);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  const shortAddr = address
+    ? `${address.slice(0, 6)}...${address.slice(-4)}`
+    : '';
+
+  // ──────────────────────────────────────────────
+  // Render — no conectado
+  // ──────────────────────────────────────────────
+  if (!connected) {
+    return (
+      <div className="card fade-in" style={{ textAlign: 'center', padding: '2.5rem 2rem' }}>
+        <div style={{
+          width: 72, height: 72, borderRadius: '50%',
+          background: 'linear-gradient(135deg, rgba(0,212,255,.15) 0%, rgba(124,58,237,.15) 100%)',
+          border: '1px solid rgba(0,212,255,.25)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          margin: '0 auto 1.5rem',
+        }}>
+          <WalletIcon size={32} color="var(--accent-cyan)" />
+        </div>
+
+        <h2 style={{ marginBottom: '.5rem' }}>Conecta tu Wallet</h2>
+        <p style={{ marginBottom: '1.75rem', maxWidth: 320, margin: '0 auto 1.75rem' }}>
+          Conecta MetaMask para interactuar con el contrato en Sepolia
+          y obtener análisis de IA.
+        </p>
+
+        {error && (
+          <div style={{
+            background: 'rgba(239,68,68,.1)', border: '1px solid rgba(239,68,68,.3)',
+            borderRadius: 'var(--radius-sm)', padding: '.75rem 1rem',
+            color: '#f87171', fontSize: '.85rem', marginBottom: '1.25rem',
+          }}>
+            ⚠️ {error}
+          </div>
+        )}
+
+        <button
+          id="btn-connect-wallet"
+          className="btn btn-primary"
+          onClick={handleConnect}
+          disabled={loading}
+          style={{ minWidth: 180 }}
+        >
+          {loading
+            ? <><span className="spinner" /> Conectando...</>
+            : <><WalletIcon size={16} /> Conectar MetaMask</>}
+        </button>
+      </div>
+    );
+  }
+
+  // ──────────────────────────────────────────────
+  // Render — conectado
+  // ──────────────────────────────────────────────
+  return (
+    <div className="card fade-in">
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '.75rem' }}>
+          <span className="badge badge-green">
+            <span className="dot dot-green" />
+            Conectado · Sepolia
+          </span>
+        </div>
+        <button
+          id="btn-disconnect-wallet"
+          className="btn btn-danger btn-sm"
+          onClick={onDisconnect}
+        >
+          <LogOut size={14} /> Desconectar
+        </button>
+      </div>
+
+      {/* Dirección */}
+      <div style={{
+        background: 'rgba(10,15,30,.8)',
+        border: '1px solid var(--border)',
+        borderRadius: 'var(--radius-sm)',
+        padding: '.85rem 1rem',
+        marginBottom: '1rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: '.5rem',
+      }}>
+        <div>
+          <div style={{ fontSize: '.72rem', color: 'var(--text-300)', marginBottom: '.2rem', textTransform: 'uppercase', letterSpacing: '.05em' }}>
+            Dirección
+          </div>
+          <code style={{ fontSize: '.88rem', color: 'var(--accent-cyan)' }}>{shortAddr}</code>
+        </div>
+        <div style={{ display: 'flex', gap: '.4rem' }}>
+          <button
+            id="btn-copy-address"
+            className="btn btn-secondary btn-sm"
+            onClick={handleCopy}
+            title="Copiar dirección"
+          >
+            {copied ? <CheckCheck size={14} color="var(--accent-green)" /> : <Copy size={14} />}
+          </button>
+          <a
+            href={`https://sepolia.etherscan.io/address/${address}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary btn-sm"
+            title="Ver en Etherscan"
+          >
+            <ExternalLink size={14} />
+          </a>
+        </div>
+      </div>
+
+      {/* Balance */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: '.72rem', color: 'var(--text-300)', textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: '.2rem' }}>
+            Balance
+          </div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '.4rem' }}>
+            <span style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text-100)' }}>{balance}</span>
+            <span style={{ fontSize: '.85rem', color: 'var(--text-300)' }}>ETH</span>
+          </div>
+        </div>
+        <button
+          id="btn-refresh-balance"
+          className="btn btn-secondary btn-sm"
+          onClick={handleRefreshBalance}
+          disabled={refreshing}
+          title="Actualizar balance"
+        >
+          <RefreshCw size={14} style={{ animation: refreshing ? 'spin .7s linear infinite' : 'none' }} />
+        </button>
+      </div>
+    </div>
+  );
+}
