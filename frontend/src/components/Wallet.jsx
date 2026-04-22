@@ -57,21 +57,20 @@ export default function Wallet({ walletData, onConnect, onDisconnect }) {
   // ──────────────────────────────────────────────
   if (!connected) {
     return (
-      <div className="card fade-in" style={{ textAlign: 'center', padding: '2.5rem 2rem' }}>
+      <div className="card fade-in" style={{ textAlign: 'center', padding: '24px', maxWidth: '400px', margin: '0 auto' }}>
         <div style={{
-          width: 72, height: 72, borderRadius: '50%',
-          background: 'linear-gradient(135deg, rgba(0,212,255,.15) 0%, rgba(124,58,237,.15) 100%)',
-          border: '1px solid rgba(0,212,255,.25)',
+          width: 48, height: 48, borderRadius: '50%',
+          background: 'var(--bg-700)',
+          border: '1px solid var(--border)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          margin: '0 auto 1.5rem',
+          margin: '0 auto 16px',
         }}>
-          <WalletIcon size={32} color="var(--accent-cyan)" />
+          <WalletIcon size={24} color="var(--text-100)" />
         </div>
 
-        <h2 style={{ marginBottom: '.5rem' }}>Conecta tu Wallet</h2>
-        <p style={{ marginBottom: '1.75rem', maxWidth: 320, margin: '0 auto 1.75rem' }}>
-          Conecta MetaMask para interactuar con el contrato en Sepolia
-          y obtener análisis de IA.
+        <h2 style={{ marginBottom: '8px', fontSize: '24px', fontWeight: '300' }}>Conecta tu Wallet</h2>
+        <p style={{ marginBottom: '24px', fontSize: '14px', color: 'var(--text-200)' }}>
+          Conecta MetaMask para interactuar con el contrato en Sepolia y obtener análisis de IA.
         </p>
 
         {error && (
@@ -89,7 +88,7 @@ export default function Wallet({ walletData, onConnect, onDisconnect }) {
           className="btn btn-primary"
           onClick={handleConnect}
           disabled={loading}
-          style={{ minWidth: 180 }}
+          style={{ width: '100%', padding: '10px' }}
         >
           {loading
             ? <><span className="spinner" /> Conectando...</>
