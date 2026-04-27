@@ -23,7 +23,7 @@ export default function AIInsights({ walletData, records, stats }) {
         balance,
         interactions: stats?.totalInteractions ?? 0,
         records: records ?? [],
-        networkName: 'Sepolia Testnet',
+        networkName: 'Portaldot Chain',
       });
       setInsight(result);
       setGenerated(true);

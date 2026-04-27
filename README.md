@@ -1,107 +1,197 @@
-# 🧠 AI Web3 Dashboard (Wallet)
+# 🧾 ProofPay
 
-A complete demonstration of integrating **Web3 + Smart Contracts + Artificial Intelligence** using React, Hardhat, Solidity, and OpenAI.
-
-This project features a clean, GitHub Dark Mode inspired UI and includes a custom Landing Page.
+> **Verifiable payment history for freelancers and small businesses — powered by Portaldot and AI.**
 
 ---
 
-## 📌 Features
-
-- **Wallet Connection**: Seamless integration with MetaMask using `ethers.js`.
-- **Smart Contract Interaction**: Deploy and interact with a custom Solidity contract on the Sepolia Testnet.
-- **AI Insights**: Generate contextual AI analysis based on the user's on-chain activity using the OpenAI API.
-- **GitHub Dark Mode Aesthetic**: A sleek, monochrome, premium UI.
+## 📌 Project Name
+**ProofPay** — *Your payments, proven on-chain.*
 
 ---
 
-## 🧱 Tech Stack
+## 🧠 Overview
 
-### Blockchain
-- **Solidity**: Smart contract development.
-- **Hardhat**: Ethereum development environment and deployment.
-- **Network**: Sepolia Testnet.
+**ProofPay** is a financial transparency platform built on **Portaldot** for the Portaldot Mini Hackathon.
 
-### Frontend
-- **React + Vite**: Fast and modern frontend framework.
-- **ethers.js**: Web3 library for interacting with the Ethereum blockchain.
-- **lucide-react**: Clean, consistent icon set.
+Freelancers and small businesses in LATAM face a common, painful problem: **they can't reliably prove their payment history**. Banks don't trust informal income, clients dispute invoices, and a PDF "payment record" is trivially falsifiable.
 
-### AI
-- **OpenAI API**: For generating AI-driven user insights (includes a mock fallback for testing without an API key).
+ProofPay solves this by recording every payment as an **immutable on-chain proof** on Portaldot. An AI assistant then lets you query your history in plain language and generate verifiable reports — for clients, accountants, or banks — with no intermediaries.
+
+> 🎯 **Goal:** Give every freelancer and small business a trustless, verifiable financial identity on Web3.
 
 ---
 
-## 🛠️ Prerequisites
+## 💡 Problem
 
-Before you begin, ensure you have the following installed:
-- [Node.js](https://nodejs.org/en/) (v16 or higher)
-- [MetaMask](https://metamask.io/) extension installed in your browser.
-- Some **Sepolia ETH** in your wallet for paying transaction gas fees.
-- (Optional) An [OpenAI API Key](https://platform.openai.com/).
+A freelancer in Mexico, Argentina, or Colombia cannot easily demonstrate their income history to:
+- A bank evaluating a loan
+- A new client validating their reliability
+- An accountant preparing a tax report
+- A platform verifying their professional track record
 
----
+Traditional records (PayPal screenshots, bank transfers, invoices) are editable, platform-dependent, and unverifiable. There is no neutral, tamper-proof source of truth.
 
-## 🚀 Installation & Setup
+## ✅ Solution
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/ErickAntoni0/AI-WEB3-WALLET.git
-cd AI-WEB3-WALLET
-```
+ProofPay provides three layers of trust:
 
-### 2. Smart Contract Setup (Root Directory)
-
-Install Hardhat and dependencies:
-```bash
-npm install
-```
-
-Set up your environment variables:
-```bash
-cp .env.example .env
-```
-Edit the `.env` file in the root directory and add your credentials:
-- `SEPOLIA_RPC_URL`: Your Alchemy or Infura RPC URL for Sepolia.
-- `PRIVATE_KEY`: Your MetaMask wallet private key (used for deploying the contract).
-
-Compile and deploy the contract:
-```bash
-npx hardhat compile
-npx hardhat run scripts/deploy.js --network sepolia
-```
-*Note: Copy the deployed contract address output by this command, you will need it for the frontend.*
-
-### 3. Frontend Setup
-
-Navigate to the frontend directory:
-```bash
-cd frontend
-npm install
-```
-
-Set up the frontend environment variables:
-Create a `.env` file inside the `frontend` folder (`frontend/.env`) and add:
-```env
-# The address of the contract you just deployed
-VITE_CONTRACT_ADDRESS="0xYourDeployedContractAddress"
-
-# Optional: Your OpenAI API key (if left empty, a mock AI response will be used)
-VITE_OPENAI_API_KEY="sk-..."
-```
-
-Run the development server:
-```bash
-npm run dev
-```
-
-### 4. Open the App
-Visit [http://localhost:5173](http://localhost:5173) in your browser.
-- You will see the main Landing Page.
-- Click **Launch App** or **Get Started** to access the Dashboard.
-- Connect your MetaMask wallet (ensure you are on the Sepolia network) to interact with the contract.
+1. **On-Chain Record** — Every payment is stored as a structured, immutable entry on Portaldot via an ink! smart contract. Publicly verifiable, forever.
+2. **AI Assistant** — A conversational AI that understands your on-chain history. Ask in plain language: *"How much did I earn this quarter?"*, *"Which client pays late?"*, *"Summarize my income for a bank application."*
+3. **Verifiable Reports** — Export a PDF report with your payment history + the on-chain contract hash. Anyone can verify authenticity directly on the Portaldot explorer.
 
 ---
 
-## 📝 License
-This project is for educational and demonstration purposes.
+## 🏗️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React + Vite + Vanilla CSS |
+| Blockchain | Portaldot (Polkadot Substrate) |
+| Smart Contracts | ink! (Rust) — Native WASM |
+| Wallet | Polkadot.js / Portaldot-compatible wallets |
+| AI Engine | OpenAI GPT-4 API |
+| PDF Export | jsPDF |
+
+---
+
+## 🔗 Why Portaldot
+
+ProofPay is specifically designed for Portaldot because:
+
+- **Low fees** make it economically viable to record every payment on-chain. On Ethereum mainnet, gas costs would exceed the value of the record for small transactions.
+- **ink!/WASM contracts** are more efficient for high-frequency, structured data writes (payment records) than EVM alternatives.
+- **Substrate architecture** enables future expansion across parachains — one identity, multiple chains, multiple countries.
+- **POT token** is used for all gas fees, keeping the entire flow native to the Portaldot ecosystem.
+
+---
+
+## 📜 Smart Contract
+
+The core contract is open source, written in **Rust using ink!**, located at `/contracts/proofpay/lib.rs`.
+
+### Contract Functions
+
+| Function | Description |
+|---|---|
+| `record_payment(client, amount, concept)` | Stores a structured, immutable payment entry with timestamp |
+| `get_payments(user)` | Returns the full verified payment history for an address |
+| `get_stats()` | Returns global contract metrics (total records, total volume) |
+| `withdraw()` | Secure fund management for the contract owner |
+
+> **License:** MIT — fully open source and deployable on any Portaldot-compatible chain.
+
+---
+
+## ⚙️ Features
+
+### 🔐 On-Chain (Smart Contract)
+- Structured payment records: `{ client_address, amount_POT, concept, timestamp, status }`
+- Immutable — once recorded, entries cannot be modified or deleted
+- Publicly verifiable on the Portaldot block explorer
+
+### 🤖 AI Chat Assistant
+- Conversational interface powered by GPT-4
+- Receives your full on-chain history as context
+- Answers questions like:
+  - *"What's my total income from [client]?"*
+  - *"Show me my busiest month this year"*
+  - *"Write a professional income summary for a bank"*
+  - *"Which payments are still pending?"*
+
+### 📊 Dashboard
+- Real-time POT balance and transaction status
+- Payment history feed with client names, amounts, and dates
+- Status indicators: Paid / Pending / Disputed
+
+### 📄 Verifiable PDF Report
+- One-click export of full payment history
+- Includes: contract address, record hashes, date range, total volume
+- Recipients can verify authenticity on-chain without trusting the PDF alone
+
+---
+
+## 🛠️ Installation & Setup
+
+### Prerequisites
+- Node.js 18+
+- A Portaldot-compatible wallet (Polkadot.js extension)
+- OpenAI API key
+
+### Steps
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/ErickAntoni0/AI-WEB3-WALLET.git
+   cd AI-WEB3-WALLET
+   ```
+
+2. **Install frontend dependencies**
+   ```bash
+   cd frontend && npm install
+   ```
+
+3. **Configure environment**
+
+   Create a `.env` file in `/frontend`:
+   ```env
+   VITE_OPENAI_API_KEY=your_key_here
+   VITE_CONTRACT_ADDRESS=your_deployed_contract_address
+   VITE_PORTALDOT_RPC=wss://your-portaldot-node
+   ```
+
+   > ⚠️ **Security note:** `VITE_` variables are bundled into the client and are publicly visible. For production, proxy all OpenAI calls through a backend server to protect your API key.
+
+4. **Deploy the smart contract** *(optional — a testnet deployment is available)*
+   ```bash
+   cd contracts/proofpay
+   cargo contract build
+   cargo contract instantiate --constructor new --suri //Alice
+   ```
+
+5. **Run the app**
+   ```bash
+   cd frontend && npm run dev
+   ```
+
+---
+
+## 🗺️ Roadmap
+
+### MVP (Hackathon Scope)
+- [x] ink! contract: `record_payment`, `get_payments`, `get_stats`
+- [x] Wallet connection (Polkadot.js)
+- [x] Payment recording form
+- [x] Payment history dashboard
+- [x] AI chat assistant with on-chain context
+- [ ] PDF report export *(in progress)*
+
+### Post-Hackathon
+- [ ] Client-side portal (clients receive a link to verify a specific payment)
+- [ ] Multi-currency support (USD-pegged stablecoin on Portaldot)
+- [ ] Dispute resolution flow (on-chain flag + AI mediation summary)
+- [ ] Credit score prototype based on payment history
+
+---
+
+## 🎯 Hackathon Compliance
+
+| Requirement | Status |
+|---|---|
+| Built on Portaldot | ✅ |
+| Uses POT as gas | ✅ |
+| Runnable MVP | ✅ |
+| Open Source Smart Contracts | ✅ |
+| AI-Enhanced UX | ✅ |
+| Solves a real problem | ✅ |
+
+---
+
+## 👨💻 Team
+
+- **ErickAntoni0** — Full Stack Developer + Smart Contract Engineer
+
+---
+
+## 📄 License
+
+MIT — see [LICENSE](./LICENSE) for details.

@@ -1,7 +1,8 @@
 {
-  "name": "frontend",
-  "private": true,
-  "version": "0.0.0",
+  "name": "proofpay-frontend",
+  "description": "Financial Transparency Dashboard for ProofPay",
+  "license": "MIT",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +12,8 @@
   },
   "dependencies": {
     "ethers": "^6.16.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
     "lucide-react": "^1.8.0",
     "openai": "^6.34.0",
     "react": "^19.2.5",

@@ -78,11 +78,11 @@ const styles = {
 /* ── Componente de tech-stack ─────────────────── */
 const STACK = [
   { label: 'React + Vite' },
-  { label: 'Solidity' },
-  { label: 'Hardhat' },
+  { label: 'Portaldot' },
+  { label: 'Ink! / Rust' },
   { label: 'OpenAI' },
-  { label: 'ethers.js' },
-  { label: 'Sepolia' },
+  { label: 'Polkadot.js' },
+  { label: 'POT Token' },
 ];
 
 /* ═══════════════════════════════════════════════ */
@@ -124,16 +124,16 @@ export default function App() {
           >
             <ArrowLeft size={16} />
           </button>
-          <a style={styles.logo} href="/" aria-label="AI Web3 Dashboard">
+          <a style={styles.logo} href="/" aria-label="ProofPay Dashboard">
             <div style={{
               width: 32, height: 32, borderRadius: 16,
               background: 'var(--bg-700)', border: '1px solid var(--border)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-            <Brain size={16} color="var(--text-100)" />
+            <span style={{ fontSize: '18px' }}>🧾</span>
           </div>
           <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-100)' }}>
-            AI Web3 Dashboard
+            ProofPay MVP
           </span>
           </a>
         </div>
@@ -165,11 +165,11 @@ export default function App() {
             Web3 + Smart Contracts + IA
           </div>
           <h1 style={{ fontWeight: 600, fontSize: '32px' }}>
-            AI-Powered Web3 Dashboard
+            ProofPay: Your payments, proven on-chain.
           </h1>
           <p style={{ maxWidth: 520, margin: '.75rem auto 1.5rem', fontSize: '1rem' }}>
-            Conecta tu wallet, interactúa con un smart contract en Sepolia
-            y obtén insights inteligentes sobre tu actividad on-chain.
+            Registra tus cobros de forma inmutable en Portaldot y genera reportes 
+            verificables con la ayuda de nuestra IA financiera.
           </p>
           {/* Stack chips */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.5rem', justifyContent: 'center' }}>
@@ -228,7 +228,7 @@ export default function App() {
 
       {/* ── Footer ─────────────────────────────── */}
       <footer style={styles.footer}>
-        <span>AI Web3 Dashboard · Demo · Solo para Sepolia Testnet · No uses fondos reales</span>
+        <span>ProofPay · Verifiable Payment History · Built on Portaldot</span>
       </footer>
     </div>
   );

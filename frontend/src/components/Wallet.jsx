@@ -70,7 +70,7 @@ export default function Wallet({ walletData, onConnect, onDisconnect }) {
 
         <h2 style={{ marginBottom: '8px', fontSize: '24px', fontWeight: '300' }}>Conecta tu Wallet</h2>
         <p style={{ marginBottom: '24px', fontSize: '14px', color: 'var(--text-200)' }}>
-          Conecta MetaMask para interactuar con el contrato en Sepolia y obtener análisis de IA.
+          Conecta tu Wallet de Portaldot para interactuar con el ecosistema y obtener análisis de IA.
         </p>
 
         {error && (
@@ -92,7 +92,7 @@ export default function Wallet({ walletData, onConnect, onDisconnect }) {
         >
           {loading
             ? <><span className="spinner" /> Conectando...</>
-            : <><WalletIcon size={16} /> Conectar MetaMask</>}
+            : <><WalletIcon size={16} /> Conectar Wallet</>}
         </button>
       </div>
     );
@@ -108,7 +108,7 @@ export default function Wallet({ walletData, onConnect, onDisconnect }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '.75rem' }}>
           <span className="badge badge-green">
             <span className="dot dot-green" />
-            Conectado · Sepolia
+            Conectado · Portaldot
           </span>
         </div>
         <button
@@ -148,11 +148,11 @@ export default function Wallet({ walletData, onConnect, onDisconnect }) {
             {copied ? <CheckCheck size={14} color="var(--accent-green)" /> : <Copy size={14} />}
           </button>
           <a
-            href={`https://sepolia.etherscan.io/address/${address}`}
+            href={`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer/query/${address}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-secondary btn-sm"
-            title="Ver en Etherscan"
+            title="Ver en Explorer"
           >
             <ExternalLink size={14} />
           </a>
@@ -167,7 +167,7 @@ export default function Wallet({ walletData, onConnect, onDisconnect }) {
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '.4rem' }}>
             <span style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text-100)' }}>{balance}</span>
-            <span style={{ fontSize: '.85rem', color: 'var(--text-300)' }}>ETH</span>
+            <span style={{ fontSize: '.85rem', color: 'var(--text-300)' }}>POT</span>
           </div>
         </div>
         <button

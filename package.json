@@ -1,7 +1,8 @@
 {
-  "name": "ai-web3-dashboard",
+  "name": "proofpay",
   "version": "1.0.0",
-  "description": "Demo de integración Web3 + Smart Contracts + IA",
+  "description": "ProofPay: Verifiable payment history for freelancers - Portaldot Hackathon MVP",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "compile": "hardhat compile",

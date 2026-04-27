@@ -1,5 +1,5 @@
 /**
- * web3.js — Utilidades para interactuar con MetaMask y ethers.js
+ * web3.js — Utilidades para interactuar con Portaldot (via MetaMask Mock para este MVP)
  */
 import { ethers } from 'ethers';
 
@@ -17,27 +17,15 @@ export const DEMO_ABI = [
 export const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS || '';
 
 /**
- * Conecta MetaMask y devuelve { provider, signer, address }
+ * Conecta Wallet y devuelve { provider, signer, address }
  */
 export async function connectWallet() {
   if (!window.ethereum) {
     throw new Error('MetaMask no detectado. Instala la extensión.');
   }
 
-  // Verificar red (Sepolia = 0xaa36a7) ANTES de crear el provider
-  const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
-  if (currentChainId !== '0xaa36a7') {
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0xaa36a7' }],
-      });
-      // Darle un instante a MetaMask para asentar el cambio
-      await new Promise(resolve => setTimeout(resolve, 500));
-    } catch (error) {
-      throw new Error('Red incorrecta. Por favor cambia a Sepolia en tu wallet.');
-    }
-  }
+  // Para el MVP de Portaldot, permitimos cualquier red o simulamos la correcta
+  // Si quisiéramos forzar una red específica de Portaldot, aquí iría la lógica
 
   const provider = new ethers.BrowserProvider(window.ethereum);
   const accounts  = await provider.send('eth_requestAccounts', []);

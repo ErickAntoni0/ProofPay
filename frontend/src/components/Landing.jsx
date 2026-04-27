@@ -1,15 +1,10 @@
-/**
- * Landing.jsx — Landing page adaptada de AsmrProg AI Landing Page
- * Imágenes servidas desde GitHub raw (no requieren descarga local)
- */
+import About from './About';
 
 const RAW = 'https://raw.githubusercontent.com/AsmrProg-YT/AI-Landing-Page/master/assets';
 
 const TABS = [
-  { label: 'Get Started', href: '#app', active: true },
-  { label: 'CONECT WALLET', href: '#api-docs', active: false },
-  { label: 'AIHUB', href: '#aihub', active: false },
-  { label: 'Security', href: '#security', active: false },
+  { label: 'Connect Wallet', href: '#app', active: true },
+  { label: 'ProofPay AI', href: '#aihub', active: false },
   { label: 'About Us', href: '#about', active: false },
 ];
 
@@ -56,8 +51,8 @@ export default function Landing({ onEnterApp }) {
       <nav style={navStyle}>
         {/* Logo */}
         <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <i className="fa-solid fa-circle-nodes" style={{ background: '#a3e635', padding: 8, fontSize: 20, borderRadius: '50%', color: '#09090c' }} />
-          <span style={{ color: '#fff', fontWeight: 600, fontSize: 18 }}>AIHUB</span>
+          <i className="fa-solid fa-file-invoice-dollar" style={{ background: '#a3e635', padding: 8, fontSize: 20, borderRadius: '50%', color: '#09090c' }} />
+          <span style={{ color: '#fff', fontWeight: 600, fontSize: 18 }}>ProofPay</span>
         </div>
 
         {/* Nav links */}
@@ -76,10 +71,6 @@ export default function Landing({ onEnterApp }) {
 
         {/* Login + CTA */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={loginStyle}>
-            <a href="#" style={{ fontSize: 13, color: '#fff', textDecoration: 'none' }}>Login</a>
-            <img src={`${RAW}/login.JPG`} alt="User" style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'cover' }} />
-          </div>
           <button
             id="btn-launch-app"
             onClick={onEnterApp}
@@ -101,18 +92,18 @@ export default function Landing({ onEnterApp }) {
       {/* ════════════════════════ HERO ════════════════════════ */}
       <section className="prompt-sec" style={{ padding: 20 }}>
         <h1 style={{ color: '#ccc', fontSize: 'clamp(62px, 12vw, 182px)', lineHeight: '0.9em', textAlign: 'center', marginTop: 36, userSelect: 'none' }}>
-          INOVADORES IA
+          PROOFPAY
         </h1>
 
         <div style={{ position: 'relative', marginTop: 16 }}>
           <img
-            src={`${RAW}/header.JPG`}
+            src='https://images.unsplash.com/photo-1674027444485-cec3da58eef4?q=80&w=3840&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
             alt="AI Hero"
-            style={{ width: '100%', height: 440, borderRadius: 60, objectFit: 'cover', objectPosition: 'top center', boxShadow: '0 -20px 40px rgba(0,0,0,1)', display: 'block' }}
+            style={{ width: '100%', height: 500, borderRadius: 60, objectFit: 'cover', objectPosition: 'center', boxShadow: '0 -10px 40px rgba(0,0,0,1)', display: 'block', margin: '40px auto 0' }}
           />
           <input
             type="text"
-            placeholder="Preguntame lo que quieras... ✨"
+            placeholder="askme anything... ✨"
             style={{
               width: '55%', position: 'absolute', top: '30%', left: '50%', transform: 'translateX(-50%)',
               background: 'rgba(255,255,255,.22)', borderRadius: 20, backdropFilter: 'blur(14px)',
@@ -144,7 +135,14 @@ export default function Landing({ onEnterApp }) {
                   e.currentTarget.style.background = tab.active ? '#a3e635' : '#231f1c';
                   e.currentTarget.style.color = tab.active ? '#231f1c' : '#fff';
                 }}
-                onClick={tab.label === 'Get Started' ? (e) => { e.preventDefault(); onEnterApp(); } : undefined}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (tab.label === 'About Us') {
+                    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    onEnterApp();
+                  }
+                }}
               >
                 {tab.label}
               </a>
@@ -156,24 +154,23 @@ export default function Landing({ onEnterApp }) {
       {/* ════════════════════════ SHOWCASE ════════════════════════ */}
       <section style={{ padding: '60px 80px 40px', marginTop: 40 }}>
         <h3 style={{ color: '#fff', fontSize: 'clamp(34px, 4vw, 56px)', textTransform: 'uppercase', textAlign: 'center', marginBottom: 50 }}>
-          UNLEASH THE POTENTIAL OF AI WITH AIHUB
+          YOUR PAYMENTS, PROVEN ON-CHAIN
         </h3>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 40, marginBottom: 20, flexWrap: 'wrap' }}>
           <p style={{ maxWidth: '50%', textAlign: 'justify', minWidth: 280 }}>
-            Immerse yourself in the world of Artificial Intelligence with AIHUB. Whether you are a seasoned professional, an avid enthusiast, or a business looking to integrate AI, AIHUB offers the tools and resources you need to thrive.
+            ProofPay is a financial transparency platform built on Portaldot. Every payment is stored as an immutable on-chain proof, allowing freelancers and small businesses to reliably prove their payment history without intermediaries.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-            {['img-1.JPG', 'img-2.JPG'].map(img => (
-              <img key={img} src={`${RAW}/${img}`} alt="" style={{ width: 256, borderRadius: 40, border: '2px solid #c5c5c5', objectFit: 'cover' }} />
-            ))}
+            <img src="https://images.unsplash.com/photo-1732020858816-93c130ab8f49?q=80&w=1558&auto=format&fit=crop" alt="Abstract shape" style={{ width: 256, borderRadius: 40, border: '2px solid rgba(255,255,255,0.1)', objectFit: 'cover' }} />
+            <img src="https://images.unsplash.com/photo-1706606999710-72658165a73d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D" alt="Web3 abstract" style={{ width: 256, borderRadius: 40, border: '2px solid rgba(255,255,255,0.1)', objectFit: 'cover' }} />
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
-          {['img-3.JPG', 'img-4.JPG', 'img-5.JPG'].map(img => (
-            <img key={img} src={`${RAW}/${img}`} alt="" style={{ width: 256, borderRadius: 40, border: '2px solid #c5c5c5', objectFit: 'cover' }} />
-          ))}
+          <img src="https://images.unsplash.com/photo-1704189125621-55e8c6cfd166?q=80&w=1287&auto=format&fit=crop" alt="Abstract 1" style={{ width: 256, height: 380, borderRadius: 40, border: '2px solid rgba(255,255,255,0.1)', objectFit: 'cover' }} />
+          <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1287&auto=format&fit=crop" alt="Abstract 2" style={{ width: 256, height: 380, borderRadius: 40, border: '2px solid rgba(255,255,255,0.1)', objectFit: 'cover' }} />
+          <img src="https://images.unsplash.com/photo-1677212004257-103cfa6b59d0?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Abstract 3" style={{ width: 256, height: 380, borderRadius: 40, border: '2px solid rgba(255,255,255,0.1)', objectFit: 'cover' }} />
         </div>
       </section>
 
@@ -181,10 +178,10 @@ export default function Landing({ onEnterApp }) {
       <section>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '40px 80px 0', flexWrap: 'wrap', gap: 20 }}>
           <h3 style={{ color: '#fff', fontSize: 'clamp(34px, 4vw, 56px)', textTransform: 'uppercase', maxWidth: '60%', minWidth: 240 }}>
-            NUESTROS SERVICIOS
+            OUR SERVICES
           </h3>
           <p style={{ maxWidth: '35%', minWidth: 240 }}>
-            At AIHUB, our goal is to democratize AI, making it accessible and beneficial for everyone. Join us in creating a smarter, more interconnected world.
+            At ProofPay, our goal is to give every freelancer and small business a trustless, verifiable financial identity on Web3.
           </p>
         </div>
 
@@ -226,7 +223,7 @@ export default function Landing({ onEnterApp }) {
             Discover our AI tools—from natural language processing to computer vision—that revolutionize your work!
           </p>
           <h3 style={{ color: '#fff', fontSize: 'clamp(34px, 4vw, 56px)', textTransform: 'uppercase', textAlign: 'right', maxWidth: '60%', minWidth: 240 }}>
-            WHY CHOOSE AIHUB
+            WHY CHOOSE PROOFPAY
           </h3>
         </div>
 
@@ -256,6 +253,11 @@ export default function Landing({ onEnterApp }) {
         </div>
       </section>
 
+      {/* ════════════════════════ ABOUT SECTION ════════════════════════ */}
+      <section id="about" style={{ padding: '40px 80px' }}>
+        <About />
+      </section>
+
       {/* ════════════════════════ FOOTER ════════════════════════ */}
       <footer style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -272,7 +274,7 @@ export default function Landing({ onEnterApp }) {
             </span>
           ))}
           <span style={{ width: 5, height: 5, background: '#a3e635', borderRadius: '50%' }} />
-          <p style={{ fontSize: 13, color: '#ccc' }}>Copyright © 2024 AsmrProg · Adapted for AI Web3 Dashboard</p>
+          <p style={{ fontSize: 13, color: '#ccc' }}>Copyright © 2024 ProofPay · Built for Portaldot Mini Hackathon</p>
         </div>
       </footer>
 
@@ -291,8 +293,4 @@ const navStyle = {
 const navLinksStyle = {
   display: 'flex', alignItems: 'center', justifyContent: 'center',
   padding: '8px 20px', background: '#171717', gap: 10, borderRadius: 50,
-};
-const loginStyle = {
-  display: 'flex', alignItems: 'center', gap: 16,
-  background: '#171717', padding: '4px 4px 4px 14px', borderRadius: 50,
 };
