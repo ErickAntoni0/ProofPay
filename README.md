@@ -121,8 +121,8 @@ The core contract is open source, written in **Rust using ink!**, located at `/c
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/ErickAntoni0/AI-WEB3-WALLET.git
-   cd AI-WEB3-WALLET
+   git clone https://github.com/ErickAntoni0/ProofPay.git
+   cd ProofPay
    ```
 
 2. **Install frontend dependencies**
