@@ -163,36 +163,26 @@ export default function Dashboard({ walletData }) {
         </div>
 
         {/* Dirección del contrato */}
-        {CONTRACT_ADDRESS ? (
-          <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
-            <div style={{ fontSize: '.72rem', color: 'var(--text-300)', marginBottom: '.35rem', textTransform: 'uppercase', letterSpacing: '.05em' }}>
-              <Database size={11} style={{ verticalAlign: 'middle', marginRight: 4 }} />
-              ProofPay Engine
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
-              <code style={{ fontSize: '.82rem', color: 'var(--text-200)', wordBreak: 'break-all' }}>
-                {CONTRACT_ADDRESS}
-              </code>
-              <a
-                href={`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer/query/${CONTRACT_ADDRESS}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary btn-sm"
-                style={{ flexShrink: 0 }}
-              >
-                <ExternalLink size={13} />
-              </a>
-            </div>
+        <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
+          <div style={{ fontSize: '.72rem', color: 'var(--text-300)', marginBottom: '.35rem', textTransform: 'uppercase', letterSpacing: '.05em' }}>
+            <Database size={11} style={{ verticalAlign: 'middle', marginRight: 4 }} />
+            ProofPay Engine
           </div>
-        ) : (
-          <div style={{
-            marginTop: '1rem', padding: '.75rem 1rem',
-            background: 'rgba(245,158,11,.08)', border: '1px solid rgba(245,158,11,.2)',
-            borderRadius: 'var(--radius-sm)', fontSize: '.83rem', color: 'var(--accent-amber)',
-          }}>
-            ⚠️ <code>VITE_CONTRACT_ADDRESS</code> no configurado en <code>.env</code>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+            <code style={{ fontSize: '.82rem', color: 'var(--text-200)', wordBreak: 'break-all' }}>
+              {CONTRACT_ADDRESS || '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY'}
+            </code>
+            <a
+              href={`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary btn-sm"
+              style={{ flexShrink: 0 }}
+            >
+              <ExternalLink size={13} />
+            </a>
           </div>
-        )}
+        </div>
       </div>
 
       {/* Formulario — enviar mensaje */}
@@ -259,7 +249,7 @@ export default function Dashboard({ walletData }) {
             }}>
               ✅ Transacción confirmada.{' '}
               <a
-                href={`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer/query/${success}`}
+                href={`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: 'inherit', fontWeight: 600 }}
@@ -277,7 +267,7 @@ export default function Dashboard({ walletData }) {
             }}>
               ⏳ Tx enviada, esperando confirmación…{' '}
               <a
-                href={`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer/query/${txHash}`}
+                href={`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.polkadot.io#/explorer`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: 'inherit' }}
@@ -291,7 +281,7 @@ export default function Dashboard({ walletData }) {
             id="btn-send-message"
             type="submit"
             className="btn btn-primary"
-            disabled={loading || !message.trim() || !CONTRACT_ADDRESS}
+            disabled={loading || !message.trim()}
           >
             {loading
               ? <><span className="spinner" /> Registrando...</>
